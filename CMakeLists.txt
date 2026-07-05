@@ -14,7 +14,9 @@ FetchContent_Declare(SFML
         SYSTEM)
 FetchContent_MakeAvailable(SFML)
 
-add_executable(PictureIt main.cpp)
+add_executable(PictureIt main.cpp
+        src/Button.cpp
+        src/Button.hpp)
 
 target_compile_features(PictureIt PRIVATE cxx_std_17)
 

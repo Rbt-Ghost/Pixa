@@ -1,5 +1,5 @@
 cmake_minimum_required(VERSION 3.28)
-project(PictureIt LANGUAGES CXX)
+project(Pixa LANGUAGES CXX)
 
 set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR})
 
@@ -14,16 +14,16 @@ FetchContent_Declare(SFML
         SYSTEM)
 FetchContent_MakeAvailable(SFML)
 
-add_executable(PictureIt main.cpp
+add_executable(Pixa main.cpp
         src/Button.cpp
         src/Button.hpp)
 
-target_compile_features(PictureIt PRIVATE cxx_std_17)
+target_compile_features(Pixa PRIVATE cxx_std_17)
 
-target_link_libraries(PictureIt PRIVATE SFML::Graphics)
+target_link_libraries(Pixa PRIVATE SFML::Graphics)
 
 if(CMAKE_CXX_COMPILER_ID STREQUAL "GNU" OR CMAKE_CXX_COMPILER_ID STREQUAL "Clang")
-    target_link_options(PictureIt PRIVATE -static -static-libgcc -static-libstdc++)
+    target_link_options(Pixa PRIVATE -static -static-libgcc -static-libstdc++)
 endif()
 
-set_property(DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR} PROPERTY VS_STARTUP_PROJECT PictureIt)
+set_property(DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR} PROPERTY VS_STARTUP_PROJECT Pixa)

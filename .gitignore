@@ -1,0 +1,59 @@
+# =========================
+# CLion / JetBrains
+# =========================
+.idea/
+*.iml
+
+# =========================
+# CMake
+# =========================
+cmake-build-*/
+CMakeCache.txt
+CMakeFiles/
+Makefile
+*.cmake
+!CMakeLists.txt
+
+# =========================
+# Build outputs
+# =========================
+bin/
+build/
+out/
+*.exe
+*.obj
+*.o
+*.a
+*.lib
+*.dll
+
+# (optional) keep main.exe if you want to test locally, but usually ignore all exe
+
+# =========================
+# SFML runtime DLLs (optional)
+# If you COPY SFML DLLs into bin/, ignore them:
+# =========================
+sfml-*.dll
+
+# =========================
+# OS files (Windows)
+# =========================
+Thumbs.db
+Desktop.ini
+
+# =========================
+# Logs
+# =========================
+*.log
+
+# =========================
+# Debug / crash files
+# =========================
+*.dmp
+core.*
+
+# =========================
+# Temporary files
+# =========================
+*.tmp
+*.swp

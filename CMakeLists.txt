@@ -16,7 +16,8 @@ FetchContent_MakeAvailable(SFML)
 
 add_executable(Pixa main.cpp
         src/Button.cpp
-        src/Button.hpp)
+        src/Button.hpp
+        src/Constants.hpp)
 
 target_compile_features(Pixa PRIVATE cxx_std_17)
 

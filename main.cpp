@@ -1,19 +1,18 @@
 #include <SFML/Graphics.hpp>
 #include "src/Button.hpp"
+#include "src/Constants.hpp"
 
 int main()
 {
     sf::RenderWindow window(
-        sf::VideoMode({1660, 840}),
+        sf::VideoMode({Constants::APP_WIDTH, Constants::APP_HEIGHT}),
         "Pixa"
     );
 
-
-
-    Button loadButton(sf::Vector2f(100,50), sf::Vector2f(140,40), "Load Button");
-    Button saveButton(sf::Vector2f(100,100), sf::Vector2f(140,40), "Save Button");
-    Button binarizationButton(sf::Vector2f(100,150), sf::Vector2f(140,40), "Binarization");
-    Button tstButton(sf::Vector2f(100,200), sf::Vector2f(140,40), "Tst");
+    Button loadButton(sf::Vector2f(Constants::BASE_BUTTON_WIDTH,Constants::BASE_BUTTON_HEIGHT*1), Constants::BASE_BUTTON_SIZE, "Load Button");
+    Button saveButton(sf::Vector2f(Constants::BASE_BUTTON_WIDTH,Constants::BASE_BUTTON_HEIGHT*2), Constants::BASE_BUTTON_SIZE, "Save Button");
+    Button binarizationButton(sf::Vector2f(Constants::BASE_BUTTON_WIDTH,Constants::BASE_BUTTON_HEIGHT*3), Constants::BASE_BUTTON_SIZE, "Binarization");
+    Button tstButton(sf::Vector2f(Constants::BASE_BUTTON_WIDTH,Constants::BASE_BUTTON_HEIGHT*4), Constants::BASE_BUTTON_SIZE, "Tst");
 
     while (window.isOpen())
     {

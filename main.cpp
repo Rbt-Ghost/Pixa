@@ -24,6 +24,11 @@ int main()
         {
             if (event->is<sf::Event::Closed>())
                 window.close();
+            else if (event->is<sf::Event::Resized>()) {
+                sf::View view(sf::FloatRect({0.f, 0.f}, sf::Vector2f(window.getSize())));
+                window.setView(view);
+            }
+
         }
 
         sf::Vector2f mousePos = sf::Vector2f(sf::Mouse::getPosition(window));

@@ -54,6 +54,20 @@ int main()
                     return -1;
                 }
                 inputSprite.setTexture(inputTexture, true);
+
+                sf::Vector2u textureSize = inputTexture.getSize();
+
+                float scaleX = Constants::MAX_IMAGE_WIDTH / static_cast<float>(textureSize.x);
+                float scaleY = Constants::MAX_IMAGE_HEIGHT / static_cast<float>(textureSize.y);
+
+                float finalScale = std::min(scaleX, scaleY);
+
+                if (finalScale > 1.f) {
+                    finalScale = 1.f;
+                }
+
+                inputSprite.setScale(sf::Vector2f(finalScale, finalScale));
+
                 inputSprite.setPosition(sf::Vector2f(static_cast<int>(Constants::APP_WIDTH / 6), static_cast<int>(Constants::BASE_BUTTON_HEIGHT - (Constants::BASE_BUTTON_SIZE.y/2))));
             }
         }

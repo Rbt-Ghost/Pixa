@@ -13,6 +13,8 @@ namespace Constants {
     constexpr unsigned BASE_BUTTON_WIDTH = 100;
     constexpr unsigned BASE_BUTTON_HEIGHT = 50;
     constexpr auto BASE_BUTTON_SIZE = sf::Vector2f(140, 40);
+    constexpr float MAX_IMAGE_WIDTH = 640.f;
+    constexpr float MAX_IMAGE_HEIGHT = 360.f;
 }
 
 #endif //PIXA_CONSTANTS_HPP

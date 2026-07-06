@@ -31,7 +31,6 @@ public:
 
     void defaultButton();
     void hoverButton();
-    void activateButton();
 
     void handleButton(sf::Vector2f mousePos);
 

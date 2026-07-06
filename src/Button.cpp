@@ -88,51 +88,24 @@ void Button::hoverButton()
     ));
 }
 
-void Button::activateButton() { const sf::Vector2f hoverSize = size + sf::Vector2f(2.f, 2.f);
-    rect.setSize(hoverSize);
-    rect.setFillColor(sf::Color::Red);
+void Button::handleButton(const sf::Vector2f mousePos)
+{
+    const bool onMousePress = sf::Mouse::isButtonPressed(sf::Mouse::Button::Left) && !isMousePressed;
+    isMousePressed = sf::Mouse::isButtonPressed(sf::Mouse::Button::Left);
 
-    rect.setOrigin(sf::Vector2f(hoverSize.x / 2.f, hoverSize.y / 2.f));
-
-    text.setCharacterSize(26);
-
-    const sf::FloatRect bounds = text.getLocalBounds();
-    text.setOrigin(sf::Vector2f(
-        bounds.position.x + bounds.size.x / 2.f,
-        bounds.position.y + bounds.size.y / 2.f
-    ));
-}
-
-void Button::handleButton(const sf::Vector2f mousePos) {
-    bool onMousePress   = false;
-
-    if (sf::Mouse::isButtonPressed(sf::Mouse::Button::Left))
+    if (rect.getGlobalBounds().contains(mousePos))
     {
-        if (!isMousePressed)
-            onMousePress = true;
-        isMousePressed = true;
-    }
-    else
-    {
-        isMousePressed = false;
-    }
-
-    if (this->getRectangle().getGlobalBounds().contains(mousePos)) {
-
-        if (onMousePress) {
+        if (onMousePress)
             isPressedInside = true;
-        }
 
-        if (isMousePressed and isPressedInside)
-            this->activateButton();
-        else
-            this->hoverButton();
+        if (!isMousePressed || !isPressedInside)
+            hoverButton();
     }
     else
     {
-        this->defaultButton();
+        defaultButton();
     }
 
-    if (not isMousePressed)
+    if (!isMousePressed)
         isPressedInside = false;
 }

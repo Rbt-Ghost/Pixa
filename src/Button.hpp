@@ -1,8 +1,8 @@
 #pragma once
 #include <SFML/Graphics.hpp>
 
-#ifndef PICTUREIT_BUTTON_HPP
-#define PICTUREIT_BUTTON_HPP
+#ifndef PIXA_BUTTON_HPP
+#define PIXA_BUTTON_HPP
 
 
 class Button {
@@ -10,6 +10,7 @@ private:
     sf::RectangleShape rect;
     sf::Font font;
     sf::Text text;
+    std::string buttonText;
     sf::Vector2f position;
     sf::Vector2f size;
 
@@ -19,10 +20,16 @@ public:
 
     void setPosition(sf::Vector2f position);
     void setSize(sf::Vector2f size);
+    void setButtonText(const std::string& buttonText);
 
     sf::RectangleShape getRectangle();
     sf::Text getText();
+
+    void defaultButton();
+    void hoverButton();
+    void activateButton();
+
 };
 
 
-#endif //PICTUREIT_BUTTON_HPP
+#endif //PIXA_BUTTON_HPP

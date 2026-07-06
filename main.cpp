@@ -5,13 +5,13 @@ int main()
 {
     sf::RenderWindow window(
         sf::VideoMode({1660, 840}),
-        "PictureIt"
+        "Pixa"
     );
 
-    Button loadButton(sf::Vector2f(60,50), sf::Vector2f(140,40), "Load Button");
-    Button saveButton(sf::Vector2f(60,100), sf::Vector2f(140,40), "Save Button");
-    Button binarizationButton(sf::Vector2f(60,150), sf::Vector2f(140,40), "Binarization");
-    Button tstButton(sf::Vector2f(60,200), sf::Vector2f(140,40), "Tst");
+    Button loadButton(sf::Vector2f(100,50), sf::Vector2f(140,40), "Load Button");
+    Button saveButton(sf::Vector2f(100,100), sf::Vector2f(140,40), "Save Button");
+    Button binarizationButton(sf::Vector2f(100,150), sf::Vector2f(140,40), "Binarization");
+    Button tstButton(sf::Vector2f(100,200), sf::Vector2f(140,40), "Tst");
 
     while (window.isOpen())
     {

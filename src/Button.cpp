@@ -2,7 +2,8 @@
 #include <iostream>
 
 
-Button::Button(const sf::Vector2f position, const sf::Vector2f size, const std::string& buttonText) : text(font) {
+Button::Button(const sf::Vector2f position, const sf::Vector2f size, const std::string& buttonText) :
+text(font) {
 
     if(!font.openFromFile("../assets/cheese_milky/Cheese Milky.otf"))
     {
@@ -11,33 +12,18 @@ Button::Button(const sf::Vector2f position, const sf::Vector2f size, const std::
 
     this->setPosition(position);
     this->setSize(size);
+    this->setButtonText(buttonText);
 
     rect.setPosition(position);
-    rect.setSize(size);
-    rect.setFillColor(sf::Color::Green);
+    text.setPosition(position);
 
-    text.setFont(font);
-    text.setCharacterSize(25);
-    text.setString(buttonText);
-
-    // --- NEW ALIGNMENT CODE ---
-
-    // 1. Get the bounding box of the text
-    sf::FloatRect textRect = text.getLocalBounds();
-
-    // 2. Set the origin to the exact center of the text
-    // We add textRect.left and textRect.top to account for the font's baseline offset
-    text.setOrigin(textRect.getCenter());
-
-    // 3. Set the position to the center of the button rectangle
-    text.setPosition(sf::Vector2f(position.x + size.x / 2.0f,
-                     position.y + size.y / 2.0f));
+    defaultButton();
 }
 
 Button::~Button() = default;
 
 void Button::setPosition(const sf::Vector2f position) {
-    if (position.x > 0 && position.y > 0) {
+    if (position.x >= 0 && position.y >= 0) {
         this->position = position;
     }
 }
@@ -45,6 +31,12 @@ void Button::setPosition(const sf::Vector2f position) {
 void Button::setSize(const sf::Vector2f size) {
     if (size.x > 0 && size.y > 0) {
         this->size = size;
+    }
+}
+
+void Button::setButtonText(const std::string &buttonText) {
+    if (!buttonText.empty()) {
+        this->buttonText = buttonText;
     }
 }
 
@@ -56,4 +48,52 @@ sf::Text Button::getText() {
     return text;
 }
 
+void Button::defaultButton()
+{
+    rect.setSize(size);
+    rect.setFillColor(sf::Color::Green);
 
+    rect.setOrigin(sf::Vector2f(size.x / 2.f, size.y / 2.f));
+
+    text.setFont(font);
+    text.setCharacterSize(25);
+    text.setString(buttonText);
+
+    const sf::FloatRect bounds = text.getLocalBounds();
+    text.setOrigin(sf::Vector2f(
+        bounds.position.x + bounds.size.x / 2.f,
+        bounds.position.y + bounds.size.y / 2.f
+    ));
+}
+
+void Button::hoverButton()
+{
+    const sf::Vector2f hoverSize = size + sf::Vector2f(2.f, 2.f);
+    rect.setSize(hoverSize);
+    rect.setFillColor(sf::Color::Cyan);
+
+    rect.setOrigin(sf::Vector2f(hoverSize.x / 2.f, hoverSize.y / 2.f));
+
+    text.setCharacterSize(30);
+
+    const sf::FloatRect bounds = text.getLocalBounds();
+    text.setOrigin(sf::Vector2f(
+        bounds.position.x + bounds.size.x / 2.f,
+        bounds.position.y + bounds.size.y / 2.f
+    ));
+}
+
+void Button::activateButton() { const sf::Vector2f hoverSize = size + sf::Vector2f(2.f, 2.f);
+    rect.setSize(hoverSize);
+    rect.setFillColor(sf::Color::Red);
+
+    rect.setOrigin(sf::Vector2f(hoverSize.x / 2.f, hoverSize.y / 2.f));
+
+    text.setCharacterSize(30);
+
+    const sf::FloatRect bounds = text.getLocalBounds();
+    text.setOrigin(sf::Vector2f(
+        bounds.position.x + bounds.size.x / 2.f,
+        bounds.position.y + bounds.size.y / 2.f
+    ));
+}

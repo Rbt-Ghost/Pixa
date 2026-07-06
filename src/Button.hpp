@@ -27,6 +27,7 @@ public:
 
     sf::RectangleShape getRectangle();
     sf::Text getText();
+    bool getIsPressedInside() const;
 
     void defaultButton();
     void hoverButton();

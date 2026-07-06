@@ -1,6 +1,7 @@
 #include <SFML/Graphics.hpp>
 #include "src/Button.hpp"
 #include "src/Constants.hpp"
+#include "src/func.hpp"
 
 int main()
 {
@@ -8,6 +9,9 @@ int main()
         sf::VideoMode({Constants::APP_WIDTH, Constants::APP_HEIGHT}),
         "Pixa"
     );
+
+    sf::Texture inputTexture;
+    sf::Sprite inputSprite(inputTexture);
 
     Button loadButton(sf::Vector2f(Constants::BASE_BUTTON_WIDTH,Constants::BASE_BUTTON_HEIGHT*1), Constants::BASE_BUTTON_SIZE, "Load Button");
     Button saveButton(sf::Vector2f(Constants::BASE_BUTTON_WIDTH,Constants::BASE_BUTTON_HEIGHT*2), Constants::BASE_BUTTON_SIZE, "Save Button");
@@ -35,6 +39,20 @@ int main()
         binarizationButton.handleButton(mousePos);
         tstButton.handleButton(mousePos);
 
+        if (loadButton.getIsPressedInside()) {
+            std::string path = openImageDialog();
+            sf::sleep(sf::milliseconds(300 ));
+
+            if (!path.empty())
+            {
+                if (!inputTexture.loadFromFile(path)) {
+                    return -1;
+                }
+                inputSprite.setTexture(inputTexture, true);
+                inputSprite.setPosition(sf::Vector2f(static_cast<int>(Constants::APP_WIDTH / 6), static_cast<int>(Constants::BASE_BUTTON_HEIGHT - (Constants::BASE_BUTTON_SIZE.y/2))));
+            }
+        }
+
         window.clear();
         window.draw(loadButton.getRectangle());
         window.draw(loadButton.getText());
@@ -44,6 +62,7 @@ int main()
         window.draw(binarizationButton.getText());
         window.draw(tstButton.getRectangle());
         window.draw(tstButton.getText());
+        window.draw(inputSprite);
         window.display();
     }
 }

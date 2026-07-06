@@ -48,6 +48,10 @@ sf::Text Button::getText() {
     return text;
 }
 
+bool Button::getIsPressedInside() const {
+    return isPressedInside;
+}
+
 void Button::defaultButton()
 {
     rect.setSize(size);

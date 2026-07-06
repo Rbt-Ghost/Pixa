@@ -14,6 +14,9 @@ private:
     sf::Vector2f position;
     sf::Vector2f size;
 
+    bool isPressedInside = false;
+    bool isMousePressed = false;
+
 public:
     Button(sf::Vector2f position, sf::Vector2f size, const std::string& buttonText);
     ~Button();
@@ -28,6 +31,8 @@ public:
     void defaultButton();
     void hoverButton();
     void activateButton();
+
+    void handleButton(sf::Vector2f mousePos);
 
 };
 

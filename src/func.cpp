@@ -4,6 +4,8 @@
 #include <commdlg.h>
 #include <iostream>
 
+#include "Constants.hpp"
+
 std::string openImageDialog() {
     char fileName[MAX_PATH] = "";
 
@@ -22,6 +24,23 @@ std::string openImageDialog() {
         return fileName;
 
     return "";
+}
+
+void scaleSprite(sf::Sprite& sprite, const sf::Texture& texture) {
+    sprite.setTexture(texture, true);
+
+    const sf::Vector2u textureSize = texture.getSize();
+
+    const float scaleX = Constants::MAX_IMAGE_WIDTH / static_cast<float>(textureSize.x);
+    const float scaleY = Constants::MAX_IMAGE_HEIGHT / static_cast<float>(textureSize.y);
+
+    float finalScale = std::min(scaleX, scaleY);
+
+    if (finalScale > 1.f) {
+        finalScale = 1.f;
+    }
+
+    sprite.setScale(sf::Vector2f(finalScale, finalScale));
 }
 
 sf::Image EdgeDetection(const sf::Image& image) {

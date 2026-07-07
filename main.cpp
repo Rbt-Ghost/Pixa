@@ -35,7 +35,7 @@ int main()
             }
         }
 
-        sf::Vector2f mousePos = sf::Vector2f(sf::Mouse::getPosition(window));
+        auto mousePos = sf::Vector2f(sf::Mouse::getPosition(window));
 
         if (window.getSize().x > 1660 || window.getSize().y > 840)
         {
@@ -57,21 +57,8 @@ int main()
                 if (!inputTexture.loadFromFile(path)) {
                     return -1;
                 }
-                inputSprite.setTexture(inputTexture, true);
 
-                sf::Vector2u textureSize = inputTexture.getSize();
-
-                float scaleX = Constants::MAX_IMAGE_WIDTH / static_cast<float>(textureSize.x);
-                float scaleY = Constants::MAX_IMAGE_HEIGHT / static_cast<float>(textureSize.y);
-
-                float finalScale = std::min(scaleX, scaleY);
-
-                if (finalScale > 1.f) {
-                    finalScale = 1.f;
-                }
-
-                inputSprite.setScale(sf::Vector2f(finalScale, finalScale));
-
+                scaleSprite(inputSprite, inputTexture);
                 inputSprite.setPosition(sf::Vector2f(static_cast<int>(Constants::APP_WIDTH / 8), static_cast<int>(Constants::BASE_BUTTON_HEIGHT - (Constants::BASE_BUTTON_SIZE.y/2))));
             }
         }
@@ -83,22 +70,9 @@ int main()
             if (!outputTexture.loadFromImage(outputImage)) {
                 return -1;
             }
-            outputSprite.setTexture(outputTexture, true);
 
-            sf::Vector2u textureSize = inputTexture.getSize();
-
-            float scaleX = Constants::MAX_IMAGE_WIDTH / static_cast<float>(textureSize.x);
-            float scaleY = Constants::MAX_IMAGE_HEIGHT / static_cast<float>(textureSize.y);
-
-            float finalScale = std::min(scaleX, scaleY);
-
-            if (finalScale > 1.f) {
-                finalScale = 1.f;
-            }
-
-            outputSprite.setScale(sf::Vector2f(finalScale, finalScale));
-
-            outputSprite.setPosition(sf::Vector2f(static_cast<int>(Constants::APP_WIDTH / 2), static_cast<int>(Constants::BASE_BUTTON_HEIGHT - (Constants::BASE_BUTTON_SIZE.y/2))));
+            scaleSprite(outputSprite, outputTexture);
+            outputSprite.setPosition(sf::Vector2f(static_cast<int>(Constants::APP_WIDTH / 1.5f), static_cast<int>(Constants::BASE_BUTTON_HEIGHT - (Constants::BASE_BUTTON_SIZE.y/2))));
         }
 
         window.clear();

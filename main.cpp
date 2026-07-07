@@ -63,7 +63,7 @@ int main()
             }
         }
 
-        if (edgeDetectionButton.getIsPressedInside()) {
+        if (edgeDetectionButton.getIsPressedInside() && inputTexture.getSize() != sf::Vector2u(0,0)) {
             inputImage = inputTexture.copyToImage();
             outputImage = EdgeDetection(inputImage);
 

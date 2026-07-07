@@ -10,9 +10,9 @@
 namespace Constants {
     constexpr unsigned APP_WIDTH = 1660;
     constexpr unsigned APP_HEIGHT = 840;
-    constexpr unsigned BASE_BUTTON_WIDTH = 140;
+    constexpr unsigned BASE_BUTTON_WIDTH = 100;
     constexpr unsigned BASE_BUTTON_HEIGHT = 50;
-    constexpr auto BASE_BUTTON_SIZE = sf::Vector2f(140, 40);
+    constexpr auto BASE_BUTTON_SIZE = sf::Vector2f(160, 40);
     constexpr float MAX_IMAGE_WIDTH = 640.f;
     constexpr float MAX_IMAGE_HEIGHT = 360.f;
 }

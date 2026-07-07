@@ -72,7 +72,7 @@ int main()
             }
 
             scaleSprite(outputSprite, outputTexture);
-            outputSprite.setPosition(sf::Vector2f(static_cast<int>(Constants::APP_WIDTH / 1.5f), static_cast<int>(Constants::BASE_BUTTON_HEIGHT - (Constants::BASE_BUTTON_SIZE.y/2))));
+            outputSprite.setPosition(sf::Vector2f(static_cast<int>(Constants::APP_WIDTH / 1.8f), static_cast<int>(Constants::BASE_BUTTON_HEIGHT - (Constants::BASE_BUTTON_SIZE.y/2))));
         }
 
         window.clear();

@@ -12,11 +12,16 @@ int main()
 
     sf::Texture inputTexture;
     sf::Sprite inputSprite(inputTexture);
+    sf::Image inputImage;
+
+    sf::Texture outputTexture;
+    sf::Sprite outputSprite(inputTexture);
+    sf::Image outputImage;
 
     Button loadButton(sf::Vector2f(Constants::BASE_BUTTON_WIDTH,Constants::BASE_BUTTON_HEIGHT*1), Constants::BASE_BUTTON_SIZE, "Load Button");
     Button saveButton(sf::Vector2f(Constants::BASE_BUTTON_WIDTH,Constants::BASE_BUTTON_HEIGHT*2), Constants::BASE_BUTTON_SIZE, "Save Button");
     Button binarizationButton(sf::Vector2f(Constants::BASE_BUTTON_WIDTH,Constants::BASE_BUTTON_HEIGHT*3), Constants::BASE_BUTTON_SIZE, "Binarization");
-    Button tstButton(sf::Vector2f(Constants::BASE_BUTTON_WIDTH,Constants::BASE_BUTTON_HEIGHT*4), Constants::BASE_BUTTON_SIZE, "Tst");
+    Button edgeDetectionButton(sf::Vector2f(Constants::BASE_BUTTON_WIDTH,Constants::BASE_BUTTON_HEIGHT*4), Constants::BASE_BUTTON_SIZE, "Edge Detection");
 
     while (window.isOpen())
     {
@@ -28,7 +33,6 @@ int main()
                 sf::View view(sf::FloatRect({0.f, 0.f}, sf::Vector2f(window.getSize())));
                 window.setView(view);
             }
-
         }
 
         sf::Vector2f mousePos = sf::Vector2f(sf::Mouse::getPosition(window));
@@ -42,7 +46,7 @@ int main()
         loadButton.handleButton(mousePos);
         saveButton.handleButton(mousePos);
         binarizationButton.handleButton(mousePos);
-        tstButton.handleButton(mousePos);
+        edgeDetectionButton.handleButton(mousePos);
 
         if (loadButton.getIsPressedInside()) {
             std::string path = openImageDialog();
@@ -68,8 +72,33 @@ int main()
 
                 inputSprite.setScale(sf::Vector2f(finalScale, finalScale));
 
-                inputSprite.setPosition(sf::Vector2f(static_cast<int>(Constants::APP_WIDTH / 6), static_cast<int>(Constants::BASE_BUTTON_HEIGHT - (Constants::BASE_BUTTON_SIZE.y/2))));
+                inputSprite.setPosition(sf::Vector2f(static_cast<int>(Constants::APP_WIDTH / 8), static_cast<int>(Constants::BASE_BUTTON_HEIGHT - (Constants::BASE_BUTTON_SIZE.y/2))));
             }
+        }
+
+        if (edgeDetectionButton.getIsPressedInside()) {
+            inputImage = inputTexture.copyToImage();
+            outputImage = EdgeDetection(inputImage);
+
+            if (!outputTexture.loadFromImage(outputImage)) {
+                return -1;
+            }
+            outputSprite.setTexture(outputTexture, true);
+
+            sf::Vector2u textureSize = inputTexture.getSize();
+
+            float scaleX = Constants::MAX_IMAGE_WIDTH / static_cast<float>(textureSize.x);
+            float scaleY = Constants::MAX_IMAGE_HEIGHT / static_cast<float>(textureSize.y);
+
+            float finalScale = std::min(scaleX, scaleY);
+
+            if (finalScale > 1.f) {
+                finalScale = 1.f;
+            }
+
+            outputSprite.setScale(sf::Vector2f(finalScale, finalScale));
+
+            outputSprite.setPosition(sf::Vector2f(static_cast<int>(Constants::APP_WIDTH / 2), static_cast<int>(Constants::BASE_BUTTON_HEIGHT - (Constants::BASE_BUTTON_SIZE.y/2))));
         }
 
         window.clear();
@@ -79,9 +108,10 @@ int main()
         window.draw(saveButton.getText());
         window.draw(binarizationButton.getRectangle());
         window.draw(binarizationButton.getText());
-        window.draw(tstButton.getRectangle());
-        window.draw(tstButton.getText());
+        window.draw(edgeDetectionButton.getRectangle());
+        window.draw(edgeDetectionButton.getText());
         window.draw(inputSprite);
+        window.draw(outputSprite);
         window.display();
     }
 }

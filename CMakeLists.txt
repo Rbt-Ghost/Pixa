@@ -19,7 +19,9 @@ add_executable(Pixa main.cpp
         src/Button.hpp
         src/Constants.hpp
         src/func.hpp
-        src/func.cpp)
+        src/func.cpp
+        src/Chart.cpp
+        src/Chart.hpp)
 
 target_compile_features(Pixa PRIVATE cxx_std_17)
 

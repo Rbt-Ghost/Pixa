@@ -1,5 +1,6 @@
 #include <SFML/Graphics.hpp>
 #include "src/Button.hpp"
+#include "src/Chart.hpp"
 #include "src/Constants.hpp"
 #include "src/func.hpp"
 
@@ -22,6 +23,9 @@ int main()
     Button saveButton(sf::Vector2f(Constants::BASE_BUTTON_WIDTH,Constants::BASE_BUTTON_HEIGHT*2), Constants::BASE_BUTTON_SIZE, "Save Button");
     Button binarizationButton(sf::Vector2f(Constants::BASE_BUTTON_WIDTH,Constants::BASE_BUTTON_HEIGHT*3), Constants::BASE_BUTTON_SIZE, "Binarization");
     Button edgeDetectionButton(sf::Vector2f(Constants::BASE_BUTTON_WIDTH,Constants::BASE_BUTTON_HEIGHT*4), Constants::BASE_BUTTON_SIZE, "Edge Detection");
+
+    Chart inputHistogram(sf::Vector2f(static_cast<int>(Constants::APP_WIDTH / 8.f), Constants::BASE_BUTTON_HEIGHT + Constants::MAX_IMAGE_HEIGHT), sf::Vector2f(Constants::MAX_IMAGE_WIDTH, Constants::MAX_IMAGE_HEIGHT));
+    Chart outputHistogram(sf::Vector2f(static_cast<int>(Constants::APP_WIDTH / 1.8f), Constants::BASE_BUTTON_HEIGHT + Constants::MAX_IMAGE_HEIGHT), sf::Vector2f(Constants::MAX_IMAGE_WIDTH, Constants::MAX_IMAGE_HEIGHT));
 
     while (window.isOpen())
     {
@@ -58,14 +62,17 @@ int main()
                     return -1;
                 }
 
+                inputImage = inputTexture.copyToImage();
+                inputHistogram.Histogram(inputImage);
+
                 scaleSprite(inputSprite, inputTexture);
-                inputSprite.setPosition(sf::Vector2f(static_cast<int>(Constants::APP_WIDTH / 8), static_cast<int>(Constants::BASE_BUTTON_HEIGHT - (Constants::BASE_BUTTON_SIZE.y/2))));
+                inputSprite.setPosition(sf::Vector2f(static_cast<int>(Constants::APP_WIDTH / 8.f), static_cast<int>(Constants::BASE_BUTTON_HEIGHT - (Constants::BASE_BUTTON_SIZE.y/2))));
             }
         }
 
         if (edgeDetectionButton.getIsPressedInside() && inputTexture.getSize() != sf::Vector2u(0,0)) {
-            inputImage = inputTexture.copyToImage();
             outputImage = EdgeDetection(inputImage);
+            outputHistogram.Histogram(outputImage);
 
             if (!outputTexture.loadFromImage(outputImage)) {
                 return -1;
@@ -86,6 +93,8 @@ int main()
         window.draw(edgeDetectionButton.getText());
         window.draw(inputSprite);
         window.draw(outputSprite);
+        window.draw(inputHistogram);
+        window.draw(outputHistogram);
         window.display();
     }
 }

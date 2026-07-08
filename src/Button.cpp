@@ -1,21 +1,15 @@
 #include "Button.hpp"
-#include <iostream>
 
 
-Button::Button(const sf::Vector2f position, const sf::Vector2f size, const std::string& buttonText) :
+Button::Button(const sf::Vector2f position, const sf::Vector2f size, const sf::Font& font, const std::string& buttonText) :
 text(font) {
-
-    if(!font.openFromFile("../assets/cheese_milky/Cheese Milky.otf"))
-    {
-        std::cerr << "Could not open Cheese Milky.otf" << std::endl;
-    }
-
     this->setPosition(position);
     this->setSize(size);
     this->setButtonText(buttonText);
 
     rect.setPosition(position);
     text.setPosition(position);
+    text.setFillColor(sf::Color::Black);
 
     defaultButton();
 }
@@ -59,8 +53,6 @@ void Button::defaultButton()
 
     rect.setOrigin(sf::Vector2f(size.x / 2.f, size.y / 2.f));
 
-    text.setFont(font);
-    text.setFillColor(sf::Color::Black);
     text.setCharacterSize(25);
     text.setString(buttonText);
 

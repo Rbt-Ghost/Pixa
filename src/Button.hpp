@@ -18,7 +18,7 @@ private:
     bool isMousePressed = false;
 
 public:
-    Button(sf::Vector2f position, sf::Vector2f size, const std::string& buttonText);
+    Button(sf::Vector2f position, sf::Vector2f size, const sf::Font& font, const std::string& buttonText);
     ~Button();
 
     void setPosition(sf::Vector2f position);

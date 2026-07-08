@@ -1,3 +1,4 @@
+#include <iostream>
 #include <SFML/Graphics.hpp>
 #include "src/Button.hpp"
 #include "src/Chart.hpp"
@@ -11,6 +12,12 @@ int main()
         "Pixa"
     );
 
+    sf::Font font;
+    if(!font.openFromFile("../assets/cheese_milky/Cheese Milky.otf"))
+    {
+        std::cerr << "Could not open Cheese Milky.otf" << std::endl;
+    }
+
     sf::Texture inputTexture;
     sf::Sprite inputSprite(inputTexture);
     sf::Image inputImage;
@@ -19,10 +26,10 @@ int main()
     sf::Sprite outputSprite(inputTexture);
     sf::Image outputImage;
 
-    Button loadButton(sf::Vector2f(Constants::BASE_BUTTON_WIDTH,Constants::BASE_BUTTON_HEIGHT*1), Constants::BASE_BUTTON_SIZE, "Load Button");
-    Button saveButton(sf::Vector2f(Constants::BASE_BUTTON_WIDTH,Constants::BASE_BUTTON_HEIGHT*2), Constants::BASE_BUTTON_SIZE, "Save Button");
-    Button binarizationButton(sf::Vector2f(Constants::BASE_BUTTON_WIDTH,Constants::BASE_BUTTON_HEIGHT*3), Constants::BASE_BUTTON_SIZE, "Binarization");
-    Button edgeDetectionButton(sf::Vector2f(Constants::BASE_BUTTON_WIDTH,Constants::BASE_BUTTON_HEIGHT*4), Constants::BASE_BUTTON_SIZE, "Edge Detection");
+    Button loadButton(sf::Vector2f(Constants::BASE_BUTTON_WIDTH,Constants::BASE_BUTTON_HEIGHT*1), Constants::BASE_BUTTON_SIZE, font, "Load Button");
+    Button saveButton(sf::Vector2f(Constants::BASE_BUTTON_WIDTH,Constants::BASE_BUTTON_HEIGHT*2), Constants::BASE_BUTTON_SIZE, font, "Save Button");
+    Button binarizationButton(sf::Vector2f(Constants::BASE_BUTTON_WIDTH,Constants::BASE_BUTTON_HEIGHT*3), Constants::BASE_BUTTON_SIZE, font, "Binarization");
+    Button edgeDetectionButton(sf::Vector2f(Constants::BASE_BUTTON_WIDTH,Constants::BASE_BUTTON_HEIGHT*4), Constants::BASE_BUTTON_SIZE, font, "Edge Detection");
 
     Chart inputHistogram(sf::Vector2f(static_cast<int>(Constants::APP_WIDTH / 8.f), Constants::BASE_BUTTON_HEIGHT + Constants::MAX_IMAGE_HEIGHT), sf::Vector2f(Constants::MAX_IMAGE_WIDTH, Constants::MAX_IMAGE_HEIGHT));
     Chart outputHistogram(sf::Vector2f(static_cast<int>(Constants::APP_WIDTH / 1.8f), Constants::BASE_BUTTON_HEIGHT + Constants::MAX_IMAGE_HEIGHT), sf::Vector2f(Constants::MAX_IMAGE_WIDTH, Constants::MAX_IMAGE_HEIGHT));

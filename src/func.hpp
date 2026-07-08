@@ -24,4 +24,5 @@ void scaleSprite(sf::Sprite& sprite, const sf::Texture& texture);
  */
 sf::Image EdgeDetection(const sf::Image& image);
 
+sf::Image ColorFilter(const sf::Image& image, sf::Color color);
 #endif //PIXA_FUNC_HPP

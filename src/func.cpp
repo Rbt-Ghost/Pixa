@@ -91,3 +91,26 @@ sf::Image EdgeDetection(const sf::Image& image) {
 
     return edgeImage;
 }
+
+sf::Image ColorFilter(const sf::Image& image, sf::Color color) {
+    sf::Image monoColorImage;
+    monoColorImage.resize(sf::Vector2u(image.getSize().x, image.getSize().y));
+
+    for (int y = 0; y < image.getSize().y; y++) {
+        for (int x = 0; x < image.getSize().x; x++) {
+            sf::Color pixel = image.getPixel(sf::Vector2u(x, y));
+
+            if (color == sf::Color::Red) {
+                monoColorImage.setPixel(sf::Vector2u(x, y), sf::Color(pixel.r, 0, 0));
+            }
+            else if (color == sf::Color::Green) {
+                monoColorImage.setPixel(sf::Vector2u(x, y), sf::Color(0, pixel.g, 0));
+            }
+            else if (color == sf::Color::Blue) {
+                monoColorImage.setPixel(sf::Vector2u(x, y), sf::Color(0, 0, pixel.b));
+            }
+        }
+    }
+
+    return monoColorImage;
+}

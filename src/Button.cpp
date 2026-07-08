@@ -10,6 +10,7 @@ text(font) {
     rect.setPosition(position);
     text.setPosition(position);
     text.setFillColor(sf::Color::Black);
+    text.setString(buttonText);
 
     defaultButton();
 }
@@ -50,12 +51,11 @@ void Button::defaultButton()
 {
     rect.setSize(size);
     rect.setFillColor(sf::Color::Green);
-
-    rect.setOrigin(sf::Vector2f(size.x / 2.f, size.y / 2.f));
+    rect.setOrigin(rect.getGeometricCenter());
 
     text.setCharacterSize(25);
-    text.setString(buttonText);
 
+    // Set the text origin based on the button rectangular shape
     const sf::FloatRect bounds = text.getLocalBounds();
     text.setOrigin(sf::Vector2f(
         bounds.position.x + bounds.size.x / 2.f,
@@ -68,11 +68,11 @@ void Button::hoverButton()
     const sf::Vector2f hoverSize = size + sf::Vector2f(4.f, 4.f);
     rect.setSize(hoverSize);
     rect.setFillColor(sf::Color::Cyan);
-
-    rect.setOrigin(sf::Vector2f(hoverSize.x / 2.f, hoverSize.y / 2.f));
+    rect.setOrigin(rect.getGeometricCenter());
 
     text.setCharacterSize(26);
 
+    // Set the text origin based on the button rectangular shape
     const sf::FloatRect bounds = text.getLocalBounds();
     text.setOrigin(sf::Vector2f(
         bounds.position.x + bounds.size.x / 2.f,

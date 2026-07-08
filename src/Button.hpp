@@ -40,7 +40,7 @@ public:
             position - The new (x, y) coordinates.
         Returns: None
     */
-    void setPosition(sf::Vector2f position);
+    void setPosition(sf::Vector2f _position);
 
     /**
         Description: Sets or updates the target dimensions of the button.
@@ -48,7 +48,7 @@ public:
             size - The new width and height.
         Returns: None
     */
-    void setSize(sf::Vector2f size);
+    void setSize(sf::Vector2f _size);
 
     /**
         Description: Sets or updates the text string displayed on the button.
@@ -56,7 +56,7 @@ public:
             buttonText - The new string to display.
         Returns: None
     */
-    void setButtonText(const std::string& buttonText);
+    void setButtonText(const std::string& _buttonText);
 
     /**
         Description: Retrieves the underlying SFML RectangleShape of the button.

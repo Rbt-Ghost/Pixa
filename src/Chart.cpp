@@ -17,15 +17,15 @@ verticesB(sf::PrimitiveType::Lines){
 
 Chart::~Chart() = default;
 
-void Chart::setPosition(sf::Vector2f position) {
-    if (position.x >= 0 && position.y >= 0) {
-        this->position = position;
+void Chart::setPosition(sf::Vector2f _position) {
+    if (_position.x >= 0 && _position.y >= 0) {
+        this->position = _position;
     }
 }
 
-void Chart::setSize(sf::Vector2f size) {
-    if (size.x > 0 && size.y > 0) {
-        this->size = size;
+void Chart::setSize(sf::Vector2f _size) {
+    if (_size.x > 0 && _size.y > 0) {
+        this->size = _size;
     }
 }
 
@@ -67,9 +67,9 @@ void Chart::Histogram(const sf::Image &image) {
         const float hG = (static_cast<float>(histoG[i]) / static_cast<float>(maxFreq)) * size.y;
         const float hB = (static_cast<float>(histoB[i]) / static_cast<float>(maxFreq)) * size.y;
 
-        sf::Color cR(255, 0, 0, 150);
-        sf::Color cG(0, 255, 0, 150);
-        sf::Color cB(0, 150, 255, 150);
+        constexpr sf::Color cR(255, 0, 0, 150);
+        constexpr sf::Color cG(0, 255, 0, 150);
+        constexpr sf::Color cB(0, 150, 255, 150);
 
         verticesR.append(sf::Vertex{sf::Vector2f(x, position.y + size.y), cR});
         verticesR.append(sf::Vertex{sf::Vector2f(x, position.y + size.y - hR), cR});

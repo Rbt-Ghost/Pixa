@@ -17,21 +17,21 @@ text(font) {
 
 Button::~Button() = default;
 
-void Button::setPosition(const sf::Vector2f position) {
-    if (position.x >= 0 && position.y >= 0) {
-        this->position = position;
+void Button::setPosition(const sf::Vector2f _position) {
+    if (_position.x >= 0 && _position.y >= 0) {
+        this->position = _position;
     }
 }
 
-void Button::setSize(const sf::Vector2f size) {
-    if (size.x > 0 && size.y > 0) {
-        this->size = size;
+void Button::setSize(const sf::Vector2f _size) {
+    if (_size.x > 0 && _size.y > 0) {
+        this->size = _size;
     }
 }
 
-void Button::setButtonText(const std::string &buttonText) {
-    if (!buttonText.empty()) {
-        this->buttonText = buttonText;
+void Button::setButtonText(const std::string &_buttonText) {
+    if (!_buttonText.empty()) {
+        this->buttonText = _buttonText;
     }
 }
 

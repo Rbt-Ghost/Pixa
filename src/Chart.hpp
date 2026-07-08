@@ -23,8 +23,8 @@ public:
     Chart(sf::Vector2f position, sf::Vector2f size);
     ~Chart() override;
 
-    void setPosition(sf::Vector2f position);
-    void setSize(sf::Vector2f size);
+    void setPosition(sf::Vector2f _position);
+    void setSize(sf::Vector2f _size);
 
     void Histogram(const sf::Image& image);
 };

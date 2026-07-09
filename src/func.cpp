@@ -54,8 +54,8 @@ sf::Image EdgeDetection(const sf::Image& image) {
 
             for (int i = 0; i < 3; i++) {
                 for (int j = 0; j < 3; j++) {
-                    int srcX = x + i - 1;
-                    int srcY = y + j - 1;
+                    const int srcX = x + i - 1;
+                    const int srcY = y + j - 1;
 
                     if (srcX >= 0 && srcY >= 0 && srcX < image.getSize().x && srcY < image.getSize().y) {
                         constexpr double kernel[3][3] = {
@@ -92,7 +92,7 @@ sf::Image EdgeDetection(const sf::Image& image) {
     return edgeImage;
 }
 
-sf::Image ColorFilter(const sf::Image& image, sf::Color color) {
+sf::Image ColorFilter(const sf::Image& image, const sf::Color color) {
     sf::Image monoColorImage;
     monoColorImage.resize(sf::Vector2u(image.getSize().x, image.getSize().y));
 
@@ -125,8 +125,8 @@ sf::Image ImageConvolution(const sf::Image& image) {
 
             for (int i = 0; i < 3; i++) {
                 for (int j = 0; j < 3; j++) {
-                    int srcX = x + i - 1;
-                    int srcY = y + j - 1;
+                    const int srcX = x + i - 1;
+                    const int srcY = y + j - 1;
 
                     if (srcX >= 0 && srcY >= 0 && srcX < image.getSize().x && srcY < image.getSize().y) {
                         constexpr double kernel[3][3] = {

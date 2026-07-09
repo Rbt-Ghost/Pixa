@@ -28,11 +28,12 @@ int main()
 
     Button loadButton(sf::Vector2f(Constants::BASE_BUTTON_WIDTH,Constants::BASE_BUTTON_HEIGHT*1), Constants::BASE_BUTTON_SIZE, font, "Load Button");
     Button saveButton(sf::Vector2f(Constants::BASE_BUTTON_WIDTH,Constants::BASE_BUTTON_HEIGHT*2), Constants::BASE_BUTTON_SIZE, font, "Save Button");
-    Button redFilterButton(sf::Vector2f(Constants::BASE_BUTTON_WIDTH,Constants::BASE_BUTTON_HEIGHT*3), Constants::BASE_BUTTON_SIZE, font, "Red Filter");
-    Button greenFilterButton(sf::Vector2f(Constants::BASE_BUTTON_WIDTH,Constants::BASE_BUTTON_HEIGHT*4), Constants::BASE_BUTTON_SIZE, font, "Green Filter");
-    Button blueFilterButton(sf::Vector2f(Constants::BASE_BUTTON_WIDTH,Constants::BASE_BUTTON_HEIGHT*5), Constants::BASE_BUTTON_SIZE, font, "Blue Filter");
-    Button binarizationButton(sf::Vector2f(Constants::BASE_BUTTON_WIDTH,Constants::BASE_BUTTON_HEIGHT*6), Constants::BASE_BUTTON_SIZE, font, "Binarization");
-    Button edgeDetectionButton(sf::Vector2f(Constants::BASE_BUTTON_WIDTH,Constants::BASE_BUTTON_HEIGHT*7), Constants::BASE_BUTTON_SIZE, font, "Edge Detection");
+    Button moveButton(sf::Vector2f(Constants::BASE_BUTTON_WIDTH,Constants::BASE_BUTTON_HEIGHT*3), Constants::BASE_BUTTON_SIZE, font, "Img1 <- Img2");
+    Button redFilterButton(sf::Vector2f(Constants::BASE_BUTTON_WIDTH,Constants::BASE_BUTTON_HEIGHT*4), Constants::BASE_BUTTON_SIZE, font, "Red Filter");
+    Button greenFilterButton(sf::Vector2f(Constants::BASE_BUTTON_WIDTH,Constants::BASE_BUTTON_HEIGHT*5), Constants::BASE_BUTTON_SIZE, font, "Green Filter");
+    Button blueFilterButton(sf::Vector2f(Constants::BASE_BUTTON_WIDTH,Constants::BASE_BUTTON_HEIGHT*6), Constants::BASE_BUTTON_SIZE, font, "Blue Filter");
+    Button binarizationButton(sf::Vector2f(Constants::BASE_BUTTON_WIDTH,Constants::BASE_BUTTON_HEIGHT*7), Constants::BASE_BUTTON_SIZE, font, "Binarization");
+    Button edgeDetectionButton(sf::Vector2f(Constants::BASE_BUTTON_WIDTH,Constants::BASE_BUTTON_HEIGHT*8), Constants::BASE_BUTTON_SIZE, font, "Edge Detection");
 
     Chart inputHistogram(sf::Vector2f(static_cast<int>(Constants::APP_WIDTH / 8.f), Constants::BASE_BUTTON_HEIGHT + Constants::MAX_IMAGE_HEIGHT), sf::Vector2f(Constants::MAX_IMAGE_WIDTH, Constants::MAX_IMAGE_HEIGHT));
     Chart outputHistogram(sf::Vector2f(static_cast<int>(Constants::APP_WIDTH / 1.8f), Constants::BASE_BUTTON_HEIGHT + Constants::MAX_IMAGE_HEIGHT), sf::Vector2f(Constants::MAX_IMAGE_WIDTH, Constants::MAX_IMAGE_HEIGHT));
@@ -59,6 +60,7 @@ int main()
 
         loadButton.handleButton(mousePos);
         saveButton.handleButton(mousePos);
+        moveButton.handleButton(mousePos);
         binarizationButton.handleButton(mousePos);
         edgeDetectionButton.handleButton(mousePos);
         redFilterButton.handleButton(mousePos);
@@ -93,6 +95,14 @@ int main()
 
             scaleSprite(outputSprite, outputTexture);
             outputSprite.setPosition(sf::Vector2f(static_cast<int>(Constants::APP_WIDTH / 1.8f), static_cast<int>(Constants::BASE_BUTTON_HEIGHT - (Constants::BASE_BUTTON_SIZE.y/2))));
+        }
+
+        if (moveButton.getIsPressedInside() && outputTexture.getSize() != sf::Vector2u(0,0)) {
+            inputTexture = outputTexture;
+            //copy the new texture to inputImage
+            inputImage = inputTexture.copyToImage();
+            //re draw the histogram
+            inputHistogram.Histogram(inputImage);
         }
 
         if (redFilterButton.getIsPressedInside() && inputTexture.getSize() != sf::Vector2u(0,0)) {
@@ -136,6 +146,8 @@ int main()
         window.draw(loadButton.getText());
         window.draw(saveButton.getRectangle());
         window.draw(saveButton.getText());
+        window.draw(moveButton.getRectangle());
+        window.draw(moveButton.getText());
         window.draw(redFilterButton.getRectangle());
         window.draw(redFilterButton.getText());
         window.draw(greenFilterButton.getRectangle());

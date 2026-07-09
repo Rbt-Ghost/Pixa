@@ -24,5 +24,19 @@ void scaleSprite(sf::Sprite& sprite, const sf::Texture& texture);
  */
 sf::Image EdgeDetection(const sf::Image& image);
 
+/**
+ * @brief Applies a single-color channel filter to an image, isolating the Red, Green, or Blue components.
+ * @param image A constant reference to the source sf::Image to be processed.
+ * @param color The target sf::Color (typically sf::Color::Red, sf::Color::Green, or sf::Color::Blue) indicating which channel to preserve.
+ * @return A new sf::Image containing only the preserved color channel.
+ */
 sf::Image ColorFilter(const sf::Image& image, sf::Color color);
+
+/**
+ * @brief Applies a custom Blur (or Smoothing) Filter, achieved through a process called Image Convolution. The algorithm use 3x3 convolution kernels to the provided image.
+ * @param image A constant reference to the source sf::Image to be processed.
+ * @return A new sf::Image containing the result of Smoothing Filter.
+ */
+sf::Image ImageConvolution(const sf::Image& image);
+
 #endif //PIXA_FUNC_HPP

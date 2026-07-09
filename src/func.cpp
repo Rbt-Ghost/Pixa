@@ -58,17 +58,17 @@ sf::Image EdgeDetection(const sf::Image& image) {
                     int srcY = y + j - 1;
 
                     if (srcX >= 0 && srcY >= 0 && srcX < image.getSize().x && srcY < image.getSize().y) {
-                        constexpr double kernel2[3][3] = {
-                            { 0, -1, 0 },
-                            { 0, 1, 0 },
-                            { 0, 0, 0 }
-                        };
                         constexpr double kernel[3][3] = {
                             { 0, 0, 0 },
                             { -1, 1, 0 },
                             { 0, 0, 0 }
                         };
-                        sf::Color pixel = image.getPixel(sf::Vector2u(srcX, srcY));
+                        constexpr double kernel2[3][3] = {
+                            { 0, -1, 0 },
+                            { 0, 1, 0 },
+                            { 0, 0, 0 }
+                        };
+                        const sf::Color pixel = image.getPixel(sf::Vector2u(srcX, srcY));
 
                         totalR += kernel[i][j] * pixel.r;
                         totalG += kernel[i][j] * pixel.g;
@@ -113,4 +113,43 @@ sf::Image ColorFilter(const sf::Image& image, sf::Color color) {
     }
 
     return monoColorImage;
+}
+
+sf::Image ImageConvolution(const sf::Image& image) {
+    sf::Image smoothImage;
+    smoothImage.resize(sf::Vector2u(image.getSize().x, image.getSize().y));
+
+    for (int y = 0; y <image.getSize().y; y++) {
+        for (int x = 0; x <image.getSize().x; x++) {
+            double totalR = 0, totalG = 0, totalB = 0;
+
+            for (int i = 0; i < 3; i++) {
+                for (int j = 0; j < 3; j++) {
+                    int srcX = x + i - 1;
+                    int srcY = y + j - 1;
+
+                    if (srcX >= 0 && srcY >= 0 && srcX < image.getSize().x && srcY < image.getSize().y) {
+                        constexpr double kernel[3][3] = {
+                            { 1.0/10, 1.0/10, 1.0/10 },
+                            { 1.0/10, 2.0/10, 1.0/10 },
+                            { 1.0/10, 1.0/10, 1.0/10 }
+                        };
+                        const sf::Color pixel = image.getPixel(sf::Vector2u(srcX, srcY));
+
+                        totalR += kernel[i][j] * pixel.r;
+                        totalG += kernel[i][j] * pixel.g;
+                        totalB += kernel[i][j] * pixel.b;
+                    }
+                }
+            }
+
+            const int finalR = std::max(0, std::min(255, static_cast<int>(totalR)));
+            const int finalG = std::max(0, std::min(255, static_cast<int>(totalG)));
+            const int finalB = std::max(0, std::min(255, static_cast<int>(totalB)));
+
+            smoothImage.setPixel(sf::Vector2u(x, y), sf::Color(finalR, finalG, finalB));
+        }
+    }
+
+    return smoothImage;
 }

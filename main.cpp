@@ -11,6 +11,7 @@ int main()
         sf::VideoMode({Constants::APP_WIDTH, Constants::APP_HEIGHT}),
         "Pixa"
     );
+    window.setFramerateLimit(60);
 
     sf::Font font;
     if(!font.openFromFile("../assets/cheese_milky/Cheese Milky.otf"))
@@ -32,8 +33,9 @@ int main()
     Button redFilterButton(sf::Vector2f(Constants::BASE_BUTTON_WIDTH,Constants::BASE_BUTTON_HEIGHT*4), Constants::BASE_BUTTON_SIZE, font, "Red Filter");
     Button greenFilterButton(sf::Vector2f(Constants::BASE_BUTTON_WIDTH,Constants::BASE_BUTTON_HEIGHT*5), Constants::BASE_BUTTON_SIZE, font, "Green Filter");
     Button blueFilterButton(sf::Vector2f(Constants::BASE_BUTTON_WIDTH,Constants::BASE_BUTTON_HEIGHT*6), Constants::BASE_BUTTON_SIZE, font, "Blue Filter");
-    Button smoothingButton(sf::Vector2f(Constants::BASE_BUTTON_WIDTH,Constants::BASE_BUTTON_HEIGHT*7), Constants::BASE_BUTTON_SIZE, font, "Smoothing Filter");
-    Button edgeDetectionButton(sf::Vector2f(Constants::BASE_BUTTON_WIDTH,Constants::BASE_BUTTON_HEIGHT*8), Constants::BASE_BUTTON_SIZE, font, "Edge Detection");
+    Button mosaicButton(sf::Vector2f(Constants::BASE_BUTTON_WIDTH,Constants::BASE_BUTTON_HEIGHT*7), Constants::BASE_BUTTON_SIZE, font, "Mosaic");
+    Button smoothingButton(sf::Vector2f(Constants::BASE_BUTTON_WIDTH,Constants::BASE_BUTTON_HEIGHT*8), Constants::BASE_BUTTON_SIZE, font, "Smoothing Filter");
+    Button edgeDetectionButton(sf::Vector2f(Constants::BASE_BUTTON_WIDTH,Constants::BASE_BUTTON_HEIGHT*9), Constants::BASE_BUTTON_SIZE, font, "Edge Detection");
 
     Chart inputHistogram(sf::Vector2f(static_cast<int>(Constants::APP_WIDTH / 8.f), Constants::BASE_BUTTON_HEIGHT + Constants::MAX_IMAGE_HEIGHT), sf::Vector2f(Constants::MAX_IMAGE_WIDTH, Constants::MAX_IMAGE_HEIGHT));
     Chart outputHistogram(sf::Vector2f(static_cast<int>(Constants::APP_WIDTH / 1.8f), Constants::BASE_BUTTON_HEIGHT + Constants::MAX_IMAGE_HEIGHT), sf::Vector2f(Constants::MAX_IMAGE_WIDTH, Constants::MAX_IMAGE_HEIGHT));
@@ -66,6 +68,7 @@ int main()
         redFilterButton.handleButton(mousePos);
         greenFilterButton.handleButton(mousePos);
         blueFilterButton.handleButton(mousePos);
+        mosaicButton.handleButton(mousePos);
 
         if (loadButton.getIsPressedInside()) {
             std::string path = openImageDialog();
@@ -117,6 +120,18 @@ int main()
             inputHistogram.Histogram(inputImage);
         }
 
+        if (mosaicButton.getIsPressedInside() && inputTexture.getSize() != sf::Vector2u(0,0)) {
+            outputImage = Mosaic(inputImage);
+            outputHistogram.Histogram(outputImage);
+
+            if (!outputTexture.loadFromImage(outputImage)) {
+                return -1;
+            }
+
+            scaleSprite(outputSprite, outputTexture);
+            outputSprite.setPosition(sf::Vector2f(static_cast<int>(Constants::APP_WIDTH / 1.8f), static_cast<int>(Constants::BASE_BUTTON_HEIGHT - (Constants::BASE_BUTTON_SIZE.y/2))));
+        }
+
         if (redFilterButton.getIsPressedInside() && inputTexture.getSize() != sf::Vector2u(0,0)) {
             outputImage = ColorFilter(inputImage, sf::Color::Red);
             outputHistogram.Histogram(outputImage);
@@ -166,6 +181,8 @@ int main()
         window.draw(greenFilterButton.getText());
         window.draw(blueFilterButton.getRectangle());
         window.draw(blueFilterButton.getText());
+        window.draw(mosaicButton.getRectangle());
+        window.draw(mosaicButton.getText());
         window.draw(smoothingButton.getRectangle());
         window.draw(smoothingButton.getText());
         window.draw(edgeDetectionButton.getRectangle());

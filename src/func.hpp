@@ -39,4 +39,12 @@ sf::Image ColorFilter(const sf::Image& image, sf::Color color);
  */
 sf::Image ImageConvolution(const sf::Image& image);
 
+/**
+ * @brief Applies a pixelation (mosaic) effect to the image by grouping pixels into square blocks.
+ * @param image A constant reference to the source sf::Image to be processed.
+ * @param mosaicSize The width and height in pixels of each mosaic block, which determines the intensity of the pixelation. Defaults to 8.
+ * @return A new sf::Image containing the mosaic-filtered result.
+ */
+sf::Image Mosaic(const sf::Image& image, int mosaicSize = 8);
+
 #endif //PIXA_FUNC_HPP

@@ -153,3 +153,32 @@ sf::Image ImageConvolution(const sf::Image& image) {
 
     return smoothImage;
 }
+
+sf::Image Mosaic(const sf::Image& image, const int mosaicSize) {
+    sf::Image mosaicImage;
+    mosaicImage.resize(sf::Vector2u(image.getSize().x, image.getSize().y));
+
+    for (int y = 0; y < image.getSize().y; y++) {
+        for (int x = 0 ; x < image.getSize().x; x++) {
+            const int newX = mosaicSize - x % mosaicSize;
+            const int newY = mosaicSize - y % mosaicSize;
+
+            if (x + newX > 0 && y + newY > 0 && x + newX < image.getSize().x && y + newY < image.getSize().y) {
+                const sf::Color pixel = image.getPixel(sf::Vector2u(x + newX, y + newY));
+
+                const int red = pixel.r;
+                const int green = pixel.g;
+                const int blue = pixel.b;
+                mosaicImage.setPixel(sf::Vector2u(x, y), sf::Color(red, green, blue));
+            }
+            else {
+                constexpr int red = 0;
+                constexpr int green = 0;
+                constexpr int blue = 0;
+                mosaicImage.setPixel(sf::Vector2u(x, y), sf::Color(red, green, blue));
+            }
+        }
+    }
+
+    return mosaicImage;
+}

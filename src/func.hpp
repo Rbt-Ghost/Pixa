@@ -47,4 +47,11 @@ sf::Image ImageConvolution(const sf::Image& image);
  */
 sf::Image Mosaic(const sf::Image& image, int mosaicSize = 8);
 
+/**
+ * @brief Converts an image to grayscale using standard BT.709 luminance weights.
+ * @param image A constant reference to the source sf::Image to be processed.
+ * @return A new sf::Image containing the grayscale result.
+ */
+sf::Image GrayScale(const sf::Image& image);
+
 #endif //PIXA_FUNC_HPP

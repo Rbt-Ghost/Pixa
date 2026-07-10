@@ -182,3 +182,19 @@ sf::Image Mosaic(const sf::Image& image, const int mosaicSize) {
 
     return mosaicImage;
 }
+
+sf::Image GrayScale(const sf::Image& image) {
+    sf::Image grayImage;
+    grayImage.resize(sf::Vector2u(image.getSize().x, image.getSize().y));
+
+    for (int y = 0; y < image.getSize().y; y++) {
+        for (int x = 0; x < image.getSize().x; x++) {
+            const sf::Color pixel = image.getPixel(sf::Vector2u(x, y));
+            const int gray = static_cast<int>(0.2126 * pixel.r + 0.7152 * pixel.g + 0.0722 * pixel.b);
+
+            grayImage.setPixel(sf::Vector2u(x, y), sf::Color(gray, gray, gray));
+        }
+    }
+
+    return grayImage;
+}

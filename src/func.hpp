@@ -54,6 +54,19 @@ sf::Image Mosaic(const sf::Image& image, int mosaicSize = 8);
  */
 sf::Image GrayScale(const sf::Image& image);
 
+/**
+ * @brief Applies an inverted logarithmic transformation to create a photographic negative effect with exaggerated highlights.
+ * @param image A constant reference to the source sf::Image to be processed.
+ * @return A new sf::Image containing the inverted logarithmic result.
+ */
 sf::Image Negative(const sf::Image& image);
+
+/**
+ * @brief Applies a binarization (thresholding) filter to convert the image to pure black and white.
+ * @param image A constant reference to the source sf::Image to be processed.
+ * @param threshold A percentage value (0 to 100). Pixels with a calculated brightness greater than this will become white; darker will become black. Defaults to 50.
+ * @return A new sf::Image containing the binarized result.
+ */
+sf::Image Binarization(const sf::Image& image, int threshold = 50);
 
 #endif //PIXA_FUNC_HPP

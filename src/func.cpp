@@ -223,3 +223,24 @@ sf::Image Negative(const sf::Image& image) {
 
     return negativeImage;
 }
+
+sf::Image Binarization(const sf::Image& image, const int threshold) {
+    sf::Image binarizationImage;
+    binarizationImage.resize(sf::Vector2u(image.getSize().x, image.getSize().y));
+
+    for (int y = 0; y < image.getSize().y; y++) {
+        for (int x = 0; x < image.getSize().x; x++) {
+            const sf::Color pixel = image.getPixel(sf::Vector2u(x, y));
+            const int val = static_cast<int>(0.333 * pixel.r + 0.333 * pixel.g + 0.333 * pixel.b);
+
+            if (val > threshold * 255.0 / 100) {
+                binarizationImage.setPixel(sf::Vector2u(x, y), sf::Color(255, 255, 255));
+            }
+            else {
+                binarizationImage.setPixel(sf::Vector2u(x, y), sf::Color(0, 0, 0));
+            }
+        }
+    }
+
+    return binarizationImage;
+}

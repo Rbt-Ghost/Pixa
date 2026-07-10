@@ -198,3 +198,28 @@ sf::Image GrayScale(const sf::Image& image) {
 
     return grayImage;
 }
+
+sf::Image Negative(const sf::Image& image) {
+    sf::Image negativeImage;
+    negativeImage.resize(sf::Vector2u(image.getSize().x, image.getSize().y));
+
+    constexpr int L = 256;
+    double LUT[L] = { 0 };
+
+    for (int i = 0; i < L; i++)
+        LUT[i] = (L - 1) - ((log(1 + i) / log(L)) * (L - 1));
+
+    for (int y = 0; y < image.getSize().y; y++) {
+        for (int x = 0; x < image.getSize().x; x++) {
+            const sf::Color pixel = image.getPixel(sf::Vector2u(x, y));
+
+            const int red = static_cast<int>(LUT[pixel.r]);
+            const int green = static_cast<int>(LUT[pixel.g]);
+            const int blue = static_cast<int>(LUT[pixel.b]);
+
+            negativeImage.setPixel(sf::Vector2u(x, y), sf::Color(red, green, blue));
+        }
+    }
+
+    return negativeImage;
+}

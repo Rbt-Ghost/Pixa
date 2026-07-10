@@ -37,6 +37,7 @@ int main()
     Button smoothingButton(sf::Vector2f(Constants::BASE_BUTTON_WIDTH,Constants::BASE_BUTTON_HEIGHT*8), Constants::BASE_BUTTON_SIZE, font, "Smoothing Filter");
     Button edgeDetectionButton(sf::Vector2f(Constants::BASE_BUTTON_WIDTH,Constants::BASE_BUTTON_HEIGHT*9), Constants::BASE_BUTTON_SIZE, font, "Edge Detection");
     Button grayScaleButton(sf::Vector2f(Constants::BASE_BUTTON_WIDTH,Constants::BASE_BUTTON_HEIGHT*10), Constants::BASE_BUTTON_SIZE, font, "GrayScale");
+    Button negativeButton(sf::Vector2f(Constants::BASE_BUTTON_WIDTH,Constants::BASE_BUTTON_HEIGHT*11), Constants::BASE_BUTTON_SIZE, font, "Negative");
 
     Chart inputHistogram(sf::Vector2f(static_cast<int>(Constants::APP_WIDTH / 8.f), Constants::BASE_BUTTON_HEIGHT + Constants::MAX_IMAGE_HEIGHT), sf::Vector2f(Constants::MAX_IMAGE_WIDTH, Constants::MAX_IMAGE_HEIGHT));
     Chart outputHistogram(sf::Vector2f(static_cast<int>(Constants::APP_WIDTH / 1.8f), Constants::BASE_BUTTON_HEIGHT + Constants::MAX_IMAGE_HEIGHT), sf::Vector2f(Constants::MAX_IMAGE_WIDTH, Constants::MAX_IMAGE_HEIGHT));
@@ -71,6 +72,7 @@ int main()
         blueFilterButton.handleButton(mousePos);
         mosaicButton.handleButton(mousePos);
         grayScaleButton.handleButton(mousePos);
+        negativeButton.handleButton(mousePos);
 
         if (loadButton.getIsPressedInside()) {
             std::string path = openImageDialog();
@@ -146,6 +148,18 @@ int main()
             outputSprite.setPosition(sf::Vector2f(static_cast<int>(Constants::APP_WIDTH / 1.8f), static_cast<int>(Constants::BASE_BUTTON_HEIGHT - (Constants::BASE_BUTTON_SIZE.y/2))));
         }
 
+        if (negativeButton.getIsPressedInside() && inputTexture.getSize() != sf::Vector2u(0,0)) {
+            outputImage = Negative(inputImage);
+            outputHistogram.Histogram(outputImage);
+
+            if (!outputTexture.loadFromImage(outputImage)) {
+                return -1;
+            }
+
+            scaleSprite(outputSprite, outputTexture);
+            outputSprite.setPosition(sf::Vector2f(static_cast<int>(Constants::APP_WIDTH / 1.8f), static_cast<int>(Constants::BASE_BUTTON_HEIGHT - (Constants::BASE_BUTTON_SIZE.y/2))));
+        }
+
         if (redFilterButton.getIsPressedInside() && inputTexture.getSize() != sf::Vector2u(0,0)) {
             outputImage = ColorFilter(inputImage, sf::Color::Red);
             outputHistogram.Histogram(outputImage);
@@ -203,6 +217,8 @@ int main()
         window.draw(edgeDetectionButton.getText());
         window.draw(grayScaleButton.getRectangle());
         window.draw(grayScaleButton.getText());
+        window.draw(negativeButton.getRectangle());
+        window.draw(negativeButton.getText());
         window.draw(inputSprite);
         window.draw(outputSprite);
         window.draw(inputHistogram);

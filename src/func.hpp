@@ -54,4 +54,6 @@ sf::Image Mosaic(const sf::Image& image, int mosaicSize = 8);
  */
 sf::Image GrayScale(const sf::Image& image);
 
+sf::Image Negative(const sf::Image& image);
+
 #endif //PIXA_FUNC_HPP

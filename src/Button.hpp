@@ -16,6 +16,11 @@ private:
     bool isMousePressed = false;
 
 protected:
+    /**
+     * @brief Draws the button and its data to the render target. Overrides the sf::Drawable standard method.
+     * @param target The render target (usually your sf::RenderWindow) where the chart will be drawn.
+     * @param states The rendering states to use (transforms, blend modes, etc.).
+     */
     void draw(sf::RenderTarget& target, sf::RenderStates states) const override;
 
 public:

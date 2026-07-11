@@ -4,7 +4,7 @@
 #ifndef PIXA_BUTTON_HPP
 #define PIXA_BUTTON_HPP
 
-class Button {
+class Button : public sf::Drawable{
 private:
     sf::RectangleShape rect;
     sf::Text text;
@@ -14,6 +14,9 @@ private:
 
     bool isPressedInside = false;
     bool isMousePressed = false;
+
+protected:
+    void draw(sf::RenderTarget& target, sf::RenderStates states) const override;
 
 public:
     /**
@@ -28,7 +31,7 @@ public:
     /**
      * @brief Default destructor for the Button class.
      */
-    ~Button();
+    ~Button() override;
 
     /**
      * @brief Sets or updates the target position of the button.

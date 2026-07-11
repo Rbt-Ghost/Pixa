@@ -101,3 +101,8 @@ void Button::handleButton(const sf::Vector2f mousePos)
     if (!isMousePressed)
         isPressedInside = false;
 }
+
+void Button::draw(sf::RenderTarget &target, const sf::RenderStates states) const {
+    target.draw(rect, states);
+    target.draw(text, states);
+}

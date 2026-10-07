@@ -13,6 +13,9 @@ int main()
     );
     window.setFramerateLimit(60);
 
+    if (sf::Image icon; icon.loadFromFile("../assets/icon.png"))
+        window.setIcon(icon);
+
     sf::Font font;
     if(!font.openFromFile("../assets/cheese_milky/Cheese Milky.otf"))
     {

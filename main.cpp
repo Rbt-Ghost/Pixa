@@ -38,7 +38,11 @@ int main()
     Button edgeDetectionButton(sf::Vector2f(Constants::BASE_BUTTON_WIDTH,Constants::BASE_BUTTON_HEIGHT*9), Constants::BASE_BUTTON_SIZE, font, "Edge Detection");
     Button grayScaleButton(sf::Vector2f(Constants::BASE_BUTTON_WIDTH,Constants::BASE_BUTTON_HEIGHT*10), Constants::BASE_BUTTON_SIZE, font, "GrayScale");
     Button negativeButton(sf::Vector2f(Constants::BASE_BUTTON_WIDTH,Constants::BASE_BUTTON_HEIGHT*11), Constants::BASE_BUTTON_SIZE, font, "Negative");
-    Button binarizationButton(sf::Vector2f(Constants::BASE_BUTTON_WIDTH,Constants::BASE_BUTTON_HEIGHT*12), Constants::BASE_BUTTON_SIZE, font, "Binarization");
+    Button binarization_50_Button(sf::Vector2f(Constants::BASE_BUTTON_WIDTH,Constants::BASE_BUTTON_HEIGHT*12), Constants::BASE_BUTTON_SIZE, font, "Binarization50%");
+    Button binarization_90_Button(sf::Vector2f(Constants::BASE_BUTTON_WIDTH,Constants::BASE_BUTTON_HEIGHT*13), Constants::BASE_BUTTON_SIZE, font, "Binarization90%");
+    Button binarization_93_Button(sf::Vector2f(Constants::BASE_BUTTON_WIDTH,Constants::BASE_BUTTON_HEIGHT*14), Constants::BASE_BUTTON_SIZE, font, "Binarization93%");
+    Button binarization_95_Button(sf::Vector2f(Constants::BASE_BUTTON_WIDTH,Constants::BASE_BUTTON_HEIGHT*15), Constants::BASE_BUTTON_SIZE, font, "Binarization95%");
+    Button binarization_99_Button(sf::Vector2f(Constants::BASE_BUTTON_WIDTH,Constants::BASE_BUTTON_HEIGHT*16), Constants::BASE_BUTTON_SIZE, font, "Binarization99%");
 
     Chart inputHistogram(sf::Vector2f(static_cast<int>(Constants::APP_WIDTH / 8.f), Constants::BASE_BUTTON_HEIGHT + Constants::MAX_IMAGE_HEIGHT), sf::Vector2f(Constants::MAX_IMAGE_WIDTH, Constants::MAX_IMAGE_HEIGHT));
     Chart outputHistogram(sf::Vector2f(static_cast<int>(Constants::APP_WIDTH / 1.8f), Constants::BASE_BUTTON_HEIGHT + Constants::MAX_IMAGE_HEIGHT), sf::Vector2f(Constants::MAX_IMAGE_WIDTH, Constants::MAX_IMAGE_HEIGHT));
@@ -74,7 +78,11 @@ int main()
         mosaicButton.handleButton(mousePos);
         grayScaleButton.handleButton(mousePos);
         negativeButton.handleButton(mousePos);
-        binarizationButton.handleButton(mousePos);
+        binarization_50_Button.handleButton(mousePos);
+        binarization_90_Button.handleButton(mousePos);
+        binarization_93_Button.handleButton(mousePos);
+        binarization_95_Button.handleButton(mousePos);
+        binarization_99_Button.handleButton(mousePos);
 
         if (loadButton.getIsPressedInside()) {
             std::string path = openImageDialog();
@@ -162,8 +170,56 @@ int main()
             outputSprite.setPosition(sf::Vector2f(static_cast<int>(Constants::APP_WIDTH / 1.8f), static_cast<int>(Constants::BASE_BUTTON_HEIGHT - (Constants::BASE_BUTTON_SIZE.y/2))));
         }
 
-        if (binarizationButton.getIsPressedInside() && inputTexture.getSize() != sf::Vector2u(0,0)) {
+        if (binarization_50_Button.getIsPressedInside() && inputTexture.getSize() != sf::Vector2u(0,0)) {
             outputImage = Binarization(inputImage);
+            outputHistogram.Histogram(outputImage);
+
+            if (!outputTexture.loadFromImage(outputImage)) {
+                return -1;
+            }
+
+            scaleSprite(outputSprite, outputTexture);
+            outputSprite.setPosition(sf::Vector2f(static_cast<int>(Constants::APP_WIDTH / 1.8f), static_cast<int>(Constants::BASE_BUTTON_HEIGHT - (Constants::BASE_BUTTON_SIZE.y/2))));
+        }
+
+        if (binarization_90_Button.getIsPressedInside() && inputTexture.getSize() != sf::Vector2u(0,0)) {
+            outputImage = Binarization(inputImage, 90);
+            outputHistogram.Histogram(outputImage);
+
+            if (!outputTexture.loadFromImage(outputImage)) {
+                return -1;
+            }
+
+            scaleSprite(outputSprite, outputTexture);
+            outputSprite.setPosition(sf::Vector2f(static_cast<int>(Constants::APP_WIDTH / 1.8f), static_cast<int>(Constants::BASE_BUTTON_HEIGHT - (Constants::BASE_BUTTON_SIZE.y/2))));
+        }
+
+        if (binarization_93_Button.getIsPressedInside() && inputTexture.getSize() != sf::Vector2u(0,0)) {
+            outputImage = Binarization(inputImage, 93);
+            outputHistogram.Histogram(outputImage);
+
+            if (!outputTexture.loadFromImage(outputImage)) {
+                return -1;
+            }
+
+            scaleSprite(outputSprite, outputTexture);
+            outputSprite.setPosition(sf::Vector2f(static_cast<int>(Constants::APP_WIDTH / 1.8f), static_cast<int>(Constants::BASE_BUTTON_HEIGHT - (Constants::BASE_BUTTON_SIZE.y/2))));
+        }
+
+        if (binarization_95_Button.getIsPressedInside() && inputTexture.getSize() != sf::Vector2u(0,0)) {
+            outputImage = Binarization(inputImage, 95);
+            outputHistogram.Histogram(outputImage);
+
+            if (!outputTexture.loadFromImage(outputImage)) {
+                return -1;
+            }
+
+            scaleSprite(outputSprite, outputTexture);
+            outputSprite.setPosition(sf::Vector2f(static_cast<int>(Constants::APP_WIDTH / 1.8f), static_cast<int>(Constants::BASE_BUTTON_HEIGHT - (Constants::BASE_BUTTON_SIZE.y/2))));
+        }
+
+        if (binarization_99_Button.getIsPressedInside() && inputTexture.getSize() != sf::Vector2u(0,0)) {
+            outputImage = Binarization(inputImage, 99);
             outputHistogram.Histogram(outputImage);
 
             if (!outputTexture.loadFromImage(outputImage)) {
@@ -222,7 +278,11 @@ int main()
         window.draw(edgeDetectionButton);
         window.draw(grayScaleButton);
         window.draw(negativeButton);
-        window.draw(binarizationButton);
+        window.draw(binarization_50_Button);
+        window.draw(binarization_90_Button);
+        window.draw(binarization_93_Button);
+        window.draw(binarization_95_Button);
+        window.draw(binarization_99_Button);
         window.draw(inputSprite);
         window.draw(outputSprite);
         window.draw(inputHistogram);

@@ -26,6 +26,26 @@ std::string openImageDialog() {
     return "";
 }
 
+std::string saveImageDialog() {
+    char fileName[MAX_PATH] = "";
+
+    OPENFILENAMEA ofn{};
+    ofn.lStructSize = sizeof(ofn);
+    ofn.lpstrFile = fileName;
+    ofn.nMaxFile = MAX_PATH;
+    ofn.lpstrFilter =
+        "PNG Image\0*.png\0"
+        "JPEG Image\0*.jpg;*.jpeg\0"
+        "Bitmap Image\0*.bmp\0";
+    ofn.lpstrDefExt = "png";
+    ofn.Flags = OFN_PATHMUSTEXIST | OFN_OVERWRITEPROMPT;
+
+    if (GetSaveFileNameA(&ofn))
+        return fileName;
+
+    return "";
+}
+
 void scaleSprite(sf::Sprite& sprite, const sf::Texture& texture) {
     sprite.setTexture(texture, true);
 

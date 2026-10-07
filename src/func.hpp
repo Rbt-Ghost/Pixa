@@ -11,6 +11,12 @@
 std::string openImageDialog();
 
 /**
+ * @brief Opens a native Windows file dialog to choose where to save an image.
+ * @return The selected path, or an empty string if the dialog was cancelled.
+ */
+std::string saveImageDialog();
+
+/**
  * @brief Uniformly scales a sprite to fit within the maximum allowed image dimensions while maintaining its original aspect ratio.
  * @param sprite A reference to the sf::Sprite that will be scaled and updated.
  * @param texture A constant reference to the sf::Texture to apply to the sprite.

@@ -102,6 +102,18 @@ int main()
             }
         }
 
+        if (saveButton.getIsPressedInside()) {
+            if (outputTexture.getSize() == sf::Vector2u(0, 0)) {
+                std::cerr << "There is no processed image to save." << std::endl;
+            } else {
+                const std::string path = saveImageDialog();
+                if (!path.empty() && !outputImage.saveToFile(path)) {
+                    std::cerr << "Could not save image to: " << path << std::endl;
+                }
+            }
+            sf::sleep(sf::milliseconds(300));
+        }
+
         if (smoothingButton.getIsPressedInside() && inputTexture.getSize() != sf::Vector2u(0,0)) {
             outputImage = ImageConvolution(inputImage);
             outputHistogram.Histogram(outputImage);

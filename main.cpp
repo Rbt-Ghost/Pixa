@@ -13,11 +13,11 @@ int main()
     );
     window.setFramerateLimit(60);
 
-    if (sf::Image icon; icon.loadFromFile("../assets/icon.png"))
+    if (sf::Image icon; icon.loadFromFile("assets/icon.png"))
         window.setIcon(icon);
 
     sf::Font font;
-    if(!font.openFromFile("../assets/cheese_milky/Cheese Milky.otf"))
+    if(!font.openFromFile("assets/cheese_milky/Cheese Milky.otf"))
     {
         std::cerr << "Could not open Cheese Milky.otf" << std::endl;
     }
